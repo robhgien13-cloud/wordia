@@ -21,6 +21,26 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      - name: Extract resident portraits
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          base = Path("site/residents")
+          files = list(base.glob("*.zip"))
+          if not files:
+              raise SystemExit("Portrait ZIP not found")
+          expected = {"TIME.webp", "FLY_verb.webp", "FLY_noun.webp", "OED.webp", "OALD.webp"}
+          target = base / "portraits"
+          target.mkdir(parents=True, exist_ok=True)
+          with ZipFile(files[0]) as z:
+              for name in expected:
+                  matches = [item for item in z.namelist() if Path(item).name == name and not item.endswith("/")]
+                  if len(matches) != 1:
+                      raise SystemExit(f"Missing or ambiguous portrait: {name}")
+                  (target / name).write_bytes(z.read(matches[0]))
+          print("Extracted:", ", ".join(sorted(expected)))
+          PY
       - name: Deploy site files
         uses: bcomnes/deploy-to-neocities@v3
         with:

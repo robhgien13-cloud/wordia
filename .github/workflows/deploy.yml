@@ -81,7 +81,7 @@ jobs:
           targets = [
               ("/", b"WORDIA"),
               ("/assets/logos/wordia-emblem-color.svg", b"RESEARCH INSTITUTE"),
-              ("/assets/logos/file_00000000ffa48208950e23312517eabf.png", b"\\x89PNG"),
+              ("/assets/logos/file_00000000ffa48208950e23312517eabf.png", bytes([0x89, 0x50, 0x4e, 0x47])),
           ]
           for path, expected in targets:
               url = base + path

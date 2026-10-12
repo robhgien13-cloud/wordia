@@ -31,15 +31,23 @@ jobs:
           if not files:
               raise SystemExit("Portrait ZIP not found")
           expected = {"TIME.webp", "FLY_verb.webp", "FLY_noun.webp", "OED.webp", "OALD.webp"}
+          optional = {"CURIOSITY.webp", "CAT.webp", "THE.webp", "KILL.webp"}
           target = base / "portraits"
           target.mkdir(parents=True, exist_ok=True)
-          with ZipFile(files[0]) as z:
-              for name in expected:
-                  matches = [item for item in z.namelist() if Path(item).name == name and not item.endswith("/")]
-                  if len(matches) != 1:
-                      raise SystemExit(f"Missing or ambiguous portrait: {name}")
-                  (target / name).write_bytes(z.read(matches[0]))
-          print("Extracted:", ", ".join(sorted(expected)))
+          found = set()
+          for archive in files:
+              with ZipFile(archive) as z:
+                  for name in expected | optional:
+                      matches = [item for item in z.namelist() if Path(item).name == name and not item.endswith("/")]
+                      if len(matches) > 1:
+                          raise SystemExit(f"Ambiguous portrait in {archive}: {name}")
+                      if matches:
+                          (target / name).write_bytes(z.read(matches[0]))
+                          found.add(name)
+          missing = expected - found
+          if missing:
+              raise SystemExit(f"Missing required portraits: {sorted(missing)}")
+          print("Extracted:", ", ".join(sorted(found)))
           PY
       - name: Deploy site files
         uses: bcomnes/deploy-to-neocities@v3

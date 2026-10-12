@@ -73,7 +73,7 @@ jobs:
               raise SystemExit("Wrong Neocities API key target: expected roaenglish")
           PY
 
-      - name: Verify deployed files through Neocities API
+      - name: Verify logo test assets through Neocities API
         env:
           NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
         run: |
@@ -85,7 +85,7 @@ jobs:
           import json
           data=json.load(open("/tmp/wordia-files.json"))
           files={item.get("path","").lstrip("/") for item in data.get("files",[])}
-          for path in ["index.html", "logo-test.html"]:
+          for path in ["index.html", "logo-test.html", "assets/logos/file_00000000ffa48208950e23312517eabf.png"]:
               print(("FOUND" if path in files else "MISSING"), path)
           homepage = [item for item in data.get("files", []) if item.get("path", "").lstrip("/") == "index.html"]
           if len(homepage) != 1:
@@ -93,6 +93,8 @@ jobs:
           print("Deployed homepage metadata:", homepage[0])
           if "logo-test.html" not in files:
               raise SystemExit("Logo test page missing from Neocities files")
+          if "assets/logos/file_00000000ffa48208950e23312517eabf.png" not in files:
+              raise SystemExit("Logo PNG missing from Neocities files")
           PY
 
       - name: Verify published homepage across cached and fresh URLs

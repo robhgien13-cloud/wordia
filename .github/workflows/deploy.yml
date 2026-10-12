@@ -65,7 +65,7 @@ jobs:
           test -s site/assets/logos/file_00000000ffa48208950e23312517eabf.png
           test -s site/assets/logos/wordia-emblem-color.svg
           curl --fail-with-body --silent --show-error --retry 3 \
-            --user "${NEOCITIES_API_KEY}:" \
+            --header "Authorization: Bearer ${NEOCITIES_API_KEY}" \
             --form "index.html=@site/index.html;type=text/html" \
             --form "assets/logos/file_00000000ffa48208950e23312517eabf.png=@site/assets/logos/file_00000000ffa48208950e23312517eabf.png;type=image/png" \
             --form "assets/logos/wordia-emblem-color.svg=@site/assets/logos/wordia-emblem-color.svg;type=image/svg+xml" \

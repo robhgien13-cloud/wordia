@@ -1,4 +1,9 @@
 const RESIDENTS=[
+{name:"CURIOSITY",image:"CURIOSITY.webp",species:"名詞",role:"好奇心旺盛な探索者",skin:"琥珀色（#C88C61）",traits:"人間を基本とした身体、二本の角、頑丈な骨格。",ability:"未知のことを確かめたいという強い衝動を持つ。",description:"疑問を放っておけない住人。好奇心が事件のきっかけとなる。",link:"../episodes/episode-2.html",story:"Episode 2 — CURIOSITY KILLED THE CAT"},
+{name:"CAT",image:"CAT.webp",species:"名詞",role:"目立つことを嫌う住人",skin:"琥珀色（#C88C61）",traits:"人間型の身体、角、頑丈な骨格。猫の耳と帽子を持つ。",ability:"THEに指し示されるとスポットライトの中で目立ってしまう。",description:"暗い路地で姿を消した。現在の安否は未確認。",link:"../episodes/episode-2.html",story:"Episode 2 — CURIOSITY KILLED THE CAT"},
+{name:"THE",image:"THE.webp",species:"限定詞",role:"特定の対象を指し示す住人",skin:"桃色（#E7A9C1）",traits:"人間型の小柄な身体、大きな目、額の結晶。",ability:"文脈で特定された対象を指し示す。未知の対象を探し出す力はない。",description:"CATの肩に座る小さな住人。大きな目と額の結晶は限定詞族の確定特徴。",link:"../episodes/episode-2.html",story:"Episode 2 — CURIOSITY KILLED THE CAT"},
+{name:"KILL / KILLED",image:"KILL.webp",species:"複合種族 名詞 動詞",role:"出来事の因果を告げる住人",skin:"琥珀色と赤珊瑚色の混合（淡色）",traits:"人間型の身体、角、頑丈な骨格、長い手足、刃物状の長い尾。",ability:"出来事の連鎖を当事者に感じさせる。KILLEDは同じ住人の過去形。",description:"意図と結果を区別して語る。KILLからKILLEDへ変化する。",link:"../episodes/episode-2.html",story:"Episode 2 — CURIOSITY KILLED THE CAT"},
+
 {name:"OED",image:"OED.webp",species:"神",role:"歴史を記録する師匠の神",skin:"未記録",traits:"長い白髪と髭。古い書物や天球儀に囲まれた書庫に身を置く。",ability:"語源・古い意味・過去の用例・意味変化を記録する。",description:"言葉の過去を見守る。全知全能ではなく、由来を知らない言葉もある。",link:"../episodes/index.html",story:"関連物語：未登録"},
 {name:"OALD",image:"OALD.webp",species:"神",role:"現在を見つめる弟子の神",skin:"未記録",traits:"若い賢者の姿。白と青を基調とした衣装。",ability:"現在の意味、品詞、文法、用法、語の組み合わせを観察・記録する。",description:"OEDの弟子。現代の言葉の働きを見つめる。",link:"../episodes/index.html",story:"関連物語：未登録"},
 {name:"TIME",image:"TIME.webp",species:"複合種族 名詞 動詞",role:"時計塔の番人",skin:"琥珀色と珊瑚色の混合（淡色）",traits:"角、長い尾、長い手足。",ability:"時間の継続・経過に関わる力。",description:"過去・現在・未来を見守る時計塔の番人。",link:"../episodes/index.html",story:"Episode 1 — TIME FLIES"},

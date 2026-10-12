@@ -5,14 +5,14 @@
 </style></head><body><header><a href="/">WORDIA RESEARCH INSTITUTE</a>　/　<a href="/residents/">住人図鑑</a></header><main>
 <div class="eyebrow">FIELD DISCOVERY REPORT</div><h1>住人発見報告書</h1>
 <p>WORDIA研究所では、英語世界で発見された住人の報告を受け付けています。臨時調査員も報告できます。報告内容は研究所で確認し、採用された発見には発見者名を記録します。</p>
-<div class="panel"><form id="report" method="POST">
+<div class="panel"><form id="report" method="POST" action="https://formsubmit.co/wordia.institute@gmail.com">
 <input type="hidden" name="_subject" value="【WORDIA】住人発見報告"><input type="hidden" name="_template" value="table"><input type="hidden" name="_url" value="https://roaenglish.neocities.org/reports/"><input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
 <label for="researcher">発見者名（ニックネーム可） *</label><input id="researcher" name="発見者名" maxlength="60" required>
 <label for="word">発見住民（英単語） *</label><input id="word" name="発見単語" maxlength="100" required>
 <input type="hidden" name="言語世界" value="英語">
-<fieldset><legend>推定される種族（品詞・必須・複数選択可）</legend><div class="checks" id="species">
-<label><input type="checkbox" value="名詞">名詞</label><label><input type="checkbox" value="動詞">動詞</label><label><input type="checkbox" value="形容詞">形容詞</label><label><input type="checkbox" value="副詞">副詞</label><label><input type="checkbox" value="代名詞">代名詞</label><label><input type="checkbox" value="前置詞">前置詞</label><label><input type="checkbox" value="接続詞">接続詞</label><label><input type="checkbox" value="限定詞">限定詞</label><label><input type="checkbox" value="間投詞">間投詞</label><label><input type="checkbox" value="不明">不明</label>
-</div></fieldset><input type="hidden" name="推定品詞" id="speciesValue">
+<label for="primarySpecies">品詞（必須） *</label><select id="primarySpecies" name="品詞" required><option value="" selected disabled>品詞を選択してください</option><option>名詞</option><option>動詞</option><option>形容詞</option><option>副詞</option><option>代名詞</option><option>前置詞</option><option>接続詞</option><option>限定詞</option><option>間投詞</option><option>不明</option></select><fieldset><legend>ほかにも該当する品詞（任意・複数選択可）</legend><div class="checks" id="species">
+<label><input type="checkbox" name="追加の品詞" value="名詞">名詞</label><label><input type="checkbox" name="追加の品詞" value="動詞">動詞</label><label><input type="checkbox" name="追加の品詞" value="形容詞">形容詞</label><label><input type="checkbox" name="追加の品詞" value="副詞">副詞</label><label><input type="checkbox" name="追加の品詞" value="代名詞">代名詞</label><label><input type="checkbox" name="追加の品詞" value="前置詞">前置詞</label><label><input type="checkbox" name="追加の品詞" value="接続詞">接続詞</label><label><input type="checkbox" name="追加の品詞" value="限定詞">限定詞</label><label><input type="checkbox" name="追加の品詞" value="間投詞">間投詞</label><label><input type="checkbox" name="追加の品詞" value="不明">不明</label>
+</div></fieldset>
 <label for="meaning">確認した意味・用法（任意）</label><textarea id="meaning" name="意味と用法" maxlength="2000"></textarea>
 <label for="source">発見場所・出典</label><input id="source" name="発見場所と出典" maxlength="500" placeholder="書名、辞書、URLなど">
 <label for="example">発見時の用例</label><textarea id="example" name="用例" maxlength="2000" placeholder="短い例文や自分で作った例文など"></textarea>
@@ -20,11 +20,6 @@
 <label for="reply">返信先メール（任意・非公開）</label><input id="reply" name="email" type="email" maxlength="254" autocomplete="email">
 <p class="notice">報告は研究所の審査対象となり、送信だけで図鑑登録が確定するわけではありません。発見者名・報告内容は採用時に公開される場合があります。メールアドレスは返信目的のみで使用し、公開しません。秘密指定の住人については調査・掲載を受け付けません。</p>
 <label class="agree"><input type="checkbox" id="agree" required>上記の取り扱いに同意します *</label>
-<p class="status" id="status" role="status"></p><button id="send" type="submit" disabled>報告を送信する</button><p><small id="configNotice">現在、研究所の受信先設定を準備しています。設定完了後に送信できます。</small></p>
+<p class="status" id="status" role="status"></p><button id="send" type="submit">報告を送信する</button><p><small>初回の送信後、研究所の受信メールに届く確認リンクで有効化してください。送信後はFormSubmitのページに移動します。</small></p>
 </form></div></main>
-<script>
-const RECEIVER_EMAIL = "wordia.institute@gmail.com"; // 研究所の受信先メールを設定して公開する
-const form=document.getElementById('report'),send=document.getElementById('send'),status=document.getElementById('status');
-if(RECEIVER_EMAIL){form.action='https://formsubmit.co/'+encodeURIComponent(RECEIVER_EMAIL);send.disabled=false;document.getElementById('configNotice').textContent='初回の送信後、研究所の受信メールに届く確認リンクで有効化してください。';}
-form.addEventListener('submit',e=>{if(!RECEIVER_EMAIL){e.preventDefault();status.textContent='受信先の設定が完了していません。';return;}const selected=[...document.querySelectorAll('#species input:checked')].map(el=>el.value);if(!selected.length){e.preventDefault();status.textContent='品詞を1つ以上選択してください。「不明」も選べます。';document.querySelector('#species').scrollIntoView({behavior:'smooth',block:'center'});return;}document.getElementById('speciesValue').value=selected.join('、');status.textContent='送信先のページを開いています。画面が切り替わらない場合は、ブラウザの通信設定をご確認ください。';});
-</script></body></html>
+</body></html>

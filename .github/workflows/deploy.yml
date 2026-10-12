@@ -73,17 +73,6 @@ jobs:
               raise SystemExit("Wrong Neocities API key target: expected roaenglish")
           PY
 
-      - name: Force upload homepage only (logo isolation test)
-        env:
-          NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
-        run: |
-          set -euo pipefail
-          test -s site/index.html
-          curl --fail-with-body --silent --show-error --retry 3 \
-            --header "Authorization: Bearer ${NEOCITIES_API_KEY}" \
-            --form "index.html=@site/index.html;type=text/html" \
-            https://neocities.org/api/upload
-
       - name: Verify logo test assets through Neocities API
         env:
           NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}

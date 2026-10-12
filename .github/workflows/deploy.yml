@@ -73,22 +73,18 @@ jobs:
               raise SystemExit("Wrong Neocities API key target: expected roaenglish")
           PY
 
-      - name: Force upload homepage and approved logo
+      - name: Force upload homepage only (logo isolation test)
         env:
           NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
         run: |
           set -euo pipefail
           test -s site/index.html
-          test -s site/assets/logos/file_00000000ffa48208950e23312517eabf.png
-          test -s site/assets/logos/wordia-emblem-color.svg
           curl --fail-with-body --silent --show-error --retry 3 \
             --header "Authorization: Bearer ${NEOCITIES_API_KEY}" \
             --form "index.html=@site/index.html;type=text/html" \
-            --form "assets/logos/file_00000000ffa48208950e23312517eabf.png=@site/assets/logos/file_00000000ffa48208950e23312517eabf.png;type=image/png" \
-            --form "assets/logos/wordia-emblem-color.svg=@site/assets/logos/wordia-emblem-color.svg;type=image/svg+xml" \
             https://neocities.org/api/upload
 
-      - name: Verify published site and logo
+      - name: Verify published homepage
         env:
           SITE_URL: https://roaenglish.neocities.org
         run: |
@@ -97,8 +93,6 @@ jobs:
           base = os.environ["SITE_URL"]
           targets = [
               ("/", b"<title>WORDIA"),
-              ("/assets/logos/wordia-emblem-color.svg", b"RESEARCH INSTITUTE"),
-              ("/assets/logos/file_00000000ffa48208950e23312517eabf.png", bytes([0x89, 0x50, 0x4e, 0x47])),
           ]
           for path, expected in targets:
               url = base + path

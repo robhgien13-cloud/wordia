@@ -56,6 +56,23 @@ jobs:
           dist_dir: site
           cleanup: false
 
+      - name: Check Neocities API destination
+        env:
+          NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
+        run: |
+          set -euo pipefail
+          curl --fail-with-body --silent --show-error \
+            --header "Authorization: Bearer ${NEOCITIES_API_KEY}" \
+            https://neocities.org/api/info > /tmp/wordia-neocities-info.json
+          python - <<'PY'
+          import json
+          data=json.load(open("/tmp/wordia-neocities-info.json"))
+          site=data.get("info",{}).get("sitename") or data.get("sitename")
+          print("Neocities API target site:", site)
+          if site != "roaenglish":
+              raise SystemExit("Wrong Neocities API key target: expected roaenglish")
+          PY
+
       - name: Force upload homepage and approved logo
         env:
           NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
@@ -79,7 +96,7 @@ jobs:
           import os, time, urllib.request
           base = os.environ["SITE_URL"]
           targets = [
-              ("/", b"WORDIA"),
+              ("/", b"<title>WORDIA"),
               ("/assets/logos/wordia-emblem-color.svg", b"RESEARCH INSTITUTE"),
               ("/assets/logos/file_00000000ffa48208950e23312517eabf.png", bytes([0x89, 0x50, 0x4e, 0x47])),
           ]
@@ -93,7 +110,11 @@ jobs:
                       )
                       with urllib.request.urlopen(request, timeout=20) as response:
                           body = response.read()
-                      if expected in body and (path != "/" or b"WORDIA" in body):
+                      if path == "/":
+                          import re
+                          print("Public HTML title:", re.findall(rb"<title[^>]*>(.*?)</title>", body, re.I | re.S)[:2])
+                          print("Starter page present:", b"Welcome to my Website!" in body)
+                      if expected in body and (path != "/" or b"Welcome to my Website!" not in body):
                           print("PASS", url, len(body), "bytes")
                           break
                       print("NOT UPDATED", url, "attempt", attempt, "bytes", len(body))

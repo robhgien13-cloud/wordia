@@ -23,7 +23,7 @@
 <p class="status" id="status" role="status"></p><button id="send" type="submit" disabled>報告を送信する</button><p><small id="configNotice">現在、研究所の受信先設定を準備しています。設定完了後に送信できます。</small></p>
 </form></div></main>
 <script>
-const RECEIVER_EMAIL = ""; // 研究所の受信先メールを設定して公開する
+const RECEIVER_EMAIL = "wordia.institute@gmail.com"; // 研究所の受信先メールを設定して公開する
 const form=document.getElementById('report'),send=document.getElementById('send'),status=document.getElementById('status');
 if(RECEIVER_EMAIL){form.action='https://formsubmit.co/'+encodeURIComponent(RECEIVER_EMAIL);send.disabled=false;document.getElementById('configNotice').textContent='初回の送信後、研究所の受信メールに届く確認リンクで有効化してください。';}
 form.addEventListener('submit',e=>{if(!RECEIVER_EMAIL){e.preventDefault();status.textContent='受信先の設定が完了していません。';return;}const selected=[...document.querySelectorAll('#species input:checked')].map(el=>el.value);document.getElementById('speciesValue').value=selected.join('、')||'未指定';send.disabled=true;send.textContent='送信中…';});

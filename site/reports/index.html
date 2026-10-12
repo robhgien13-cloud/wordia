@@ -5,7 +5,7 @@
 </style></head><body><header><a href="/">WORDIA RESEARCH INSTITUTE</a>　/　<a href="/residents/">住人図鑑</a></header><main>
 <div class="eyebrow">FIELD DISCOVERY REPORT</div><h1>住人発見報告書</h1>
 <p>WORDIA研究所では、英語世界で発見された住人の報告を受け付けています。臨時調査員も報告できます。報告内容は研究所で確認し、採用された発見には発見者名を記録します。</p>
-<div class="panel"><form id="report" onsubmit="if(!this.querySelector(&quot;#species input:checked&quot;)){alert(&quot;品詞を1つ以上選択してください&quot;);return false;}return true;" method="POST" action="https://formsubmit.co/wordia.institute@gmail.com">
+<div class="panel"><form id="report" method="POST" action="https://formsubmit.co/wordia.institute@gmail.com">
 <input type="hidden" name="_subject" value="【WORDIA】住人発見報告"><input type="hidden" name="_template" value="table"><input type="hidden" name="_url" value="https://roaenglish.neocities.org/reports/"><input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
 <label for="researcher">発見者名（ニックネーム可） *</label><input id="researcher" name="発見者名" maxlength="60" required>
 <label for="word">発見住民（英単語） *</label><input id="word" name="発見単語" maxlength="100" required>
@@ -29,6 +29,6 @@
 <label for="reply">返信先メール（任意・非公開）</label><input id="reply" name="email" type="email" maxlength="254" autocomplete="email">
 <p class="notice">報告は研究所の審査対象となり、送信だけで図鑑登録が確定するわけではありません。発見者名・報告内容は採用時に公開される場合があります。メールアドレスは返信目的のみで使用し、公開しません。秘密指定の住人については調査・掲載を受け付けません。</p>
 <label class="agree"><input type="checkbox" id="agree" required>上記の取り扱いに同意します *</label>
-<p class="status" id="status" role="status"></p><button id="send" type="submit">報告を送信する</button><p><small>初回の送信後、研究所の受信メールに届く確認リンクで有効化してください。送信後はFormSubmitのページに移動します。</small></p>
+<p class="status" id="status" role="status">※送信後はFormSubmitのページに移動します。移動しない場合は、画面上部に未入力項目がないか確認してください。</p><button id="send" type="submit">報告を送信する</button><p><small>初回の送信後、研究所の受信メールに届く確認リンクで有効化してください。送信後はFormSubmitのページに移動します。</small></p>
 </form></div></main>
 </body></html>

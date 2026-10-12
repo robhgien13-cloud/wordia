@@ -26,5 +26,5 @@
 const RECEIVER_EMAIL = "wordia.institute@gmail.com"; // 研究所の受信先メールを設定して公開する
 const form=document.getElementById('report'),send=document.getElementById('send'),status=document.getElementById('status');
 if(RECEIVER_EMAIL){form.action='https://formsubmit.co/'+encodeURIComponent(RECEIVER_EMAIL);send.disabled=false;document.getElementById('configNotice').textContent='初回の送信後、研究所の受信メールに届く確認リンクで有効化してください。';}
-form.addEventListener('submit',e=>{if(!RECEIVER_EMAIL){e.preventDefault();status.textContent='受信先の設定が完了していません。';return;}const selected=[...document.querySelectorAll('#species input:checked')].map(el=>el.value);document.getElementById('speciesValue').value=selected.join('、')||'未指定';send.disabled=true;send.textContent='送信中…';});
+form.addEventListener('submit',e=>{if(!RECEIVER_EMAIL){e.preventDefault();status.textContent='受信先の設定が完了していません。';return;}const selected=[...document.querySelectorAll('#species input:checked')].map(el=>el.value);document.getElementById('speciesValue').value=selected.join('、')||'未指定';status.textContent='送信先のページを開いています。画面が切り替わらない場合は、ブラウザの通信設定をご確認ください。';});
 </script></body></html>
